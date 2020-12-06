@@ -2,9 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
+import { useAuth0 } from '@auth0/auth0-react';
 import paths from '../constants/paths';
-
-import { useAuth0 } from '../react-auth0-spa';
 
 const useStyles = makeStyles({
   title: {
