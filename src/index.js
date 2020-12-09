@@ -10,28 +10,20 @@ import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { ApolloLink, Observable } from 'apollo-link';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { Auth0Provider, useAuth0 } from './react-auth0-spa';
-import config from './auth_config.json';
-import history from './utils/history';
 
 dotenv.config();
 
-const onRedirectCallback = (appState) => {
-  history.push(
-    appState && appState.targetUrl
-      ? appState.targetUrl
-      : window.location.pathname
-  );
-};
-
 const AuthorizedApolloProvider = ({ children }) => {
-  const { getTokenSilently } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
 
   const request = async (operation) => {
-    const token = await getTokenSilently();
+    const token = await getAccessTokenSilently({
+      audience: process.env.REACT_APP_AUTH_AUDIENCE,
+    });
 
     operation.setContext({
       headers: {
@@ -89,11 +81,9 @@ const AuthorizedApolloProvider = ({ children }) => {
 
 ReactDOM.render(
   <Auth0Provider
-    domain={config.domain}
-    client_id={config.clientId}
-    audience={config.audience}
-    redirect_uri={window.location.origin}
-    onRedirectCallback={onRedirectCallback}
+    domain={process.env.REACT_APP_AUTH_DOMAIN}
+    clientId={process.env.REACT_APP_AUTH_CLIENT_ID}
+    redirectUri={window.location.origin}
   >
     <AuthorizedApolloProvider>
       <CssBaseline />
