@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable  */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
