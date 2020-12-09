@@ -1,4 +1,4 @@
-/* eslint-disable  */
+/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -78,21 +78,19 @@ const AuthorizedApolloProvider = ({ children }) => {
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
 
-console.log(process.env);
-
-// ReactDOM.render(
-//   <Auth0Provider
-//     domain={process.env.REACT_APP_AUTH_DOMAIN}
-//     clientId={process.env.REACT_APP_AUTH_CLIENT_ID}
-//     redirectUri={window.location.origin}
-//   >
-//     <AuthorizedApolloProvider>
-//       <CssBaseline />
-//       <App />
-//     </AuthorizedApolloProvider>
-//   </Auth0Provider>,
-//   document.getElementById('root')
-// );
+ReactDOM.render(
+  <Auth0Provider
+    domain={process.env.REACT_APP_AUTH_DOMAIN}
+    clientId={process.env.REACT_APP_AUTH_CLIENT_ID}
+    redirectUri={window.location.origin}
+  >
+    <AuthorizedApolloProvider>
+      <CssBaseline />
+      <App />
+    </AuthorizedApolloProvider>
+  </Auth0Provider>,
+  document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
