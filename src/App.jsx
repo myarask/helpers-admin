@@ -7,14 +7,12 @@ import {
   Loading,
   PrivateRoute,
 } from 'components';
-
 import Home from 'pages/Home';
 import Agencies from 'pages/Agencies';
 import InternalUsers from 'pages/InternalUsers';
 import NewAgency from 'pages/NewAgency';
 import Agency from 'pages/Agency';
 import Clients from 'pages/Clients';
-
 import paths from 'constants/paths';
 import history from 'utils/history';
 
