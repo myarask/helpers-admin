@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "npm-run-all --parallel server api-server",
+    "start": "./node_modules/npm-run-all/bin/npm-run-all/index.js --parallel server api-server",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -12,8 +12,8 @@
     "server:dev": "nodemon server.js",
     "api-server": "node backend/index.js",
     "api-server:dev": "nodemon backend/index.js",
-    "dev": "npm-run-all --parallel spa api-server:dev",
-    "prod": "npm-run-all --parallel server api-server"
+    "dev": "./node_modules/npm-run-all/bin/npm-run-all/index.js --parallel spa api-server:dev",
+    "prod": "./node_modules/npm-run-all/bin/npm-run-all/index.js --parallel server api-server"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.4",
