@@ -18,12 +18,12 @@ import Clients from 'pages/Clients';
 import paths from 'constants/paths';
 import history from 'utils/history';
 
-import { useAuth0 } from './react-auth0-spa';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const App = () => {
   const auth0 = useAuth0();
 
-  if (auth0.loading) {
+  if (auth0.isLoading) {
     return <Loading />;
   }
 
