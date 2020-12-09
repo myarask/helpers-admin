@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-filename-extension */
-import dotenv from 'dotenv';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -14,8 +13,6 @@ import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
-dotenv.config();
 
 const AuthorizedApolloProvider = ({ children }) => {
   const { getAccessTokenSilently } = useAuth0();
@@ -62,7 +59,9 @@ const AuthorizedApolloProvider = ({ children }) => {
               `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
             )
           );
-        if (networkError) console.log(`[Network error]: ${networkError}`);
+        if (networkError) {
+          console.log(`[Network error]: ${networkError}`);
+        }
       }),
       requestLink,
       new HttpLink({
