@@ -19,7 +19,7 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
       });
     };
     fn();
-  }, [isLoading, isAuthenticated, loginWithRedirect, path]);
+  }, [isLoading, isAuthenticated, loginWithRedirect, path, hasError]);
 
   const render = (props) => {
     if (hasError) return <Unauthorized />;
