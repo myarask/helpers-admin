@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { Route, withRouter } from 'react-router-dom';
-import { useAuth0 } from '../react-auth0-spa';
+import { useAuth0 } from '@auth0/auth0-react';
 import Unauthorized from '../pages/Unauthorized';
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
-  const { loading, isAuthenticated, loginWithRedirect } = useAuth0();
+  const { isLoading, isAuthenticated, loginWithRedirect } = useAuth0();
   const hasError = window.location.search.includes('error=');
 
   useEffect(() => {
-    if (loading || isAuthenticated) {
+    if (isLoading || isAuthenticated) {
       return;
     }
     if (hasError) return;
@@ -19,7 +19,7 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
       });
     };
     fn();
-  }, [loading, isAuthenticated, loginWithRedirect, path]);
+  }, [isLoading, isAuthenticated, loginWithRedirect, path, hasError]);
 
   const render = (props) => {
     if (hasError) return <Unauthorized />;
