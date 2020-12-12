@@ -73,7 +73,7 @@ jobs:
         region: ca-central-1
         deployment_package: deploy.zip
 
-    - name: Deploy to Test EB Environment
+    - name: Deploy to Prod EB Environment
       if: github.ref == 'refs/heads/release-prod'
       uses: einaregilsson/beanstalk-deploy@v14
       with:
