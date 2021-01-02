@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import gql from 'graphql-tag';
 import {
   Button,
   Card,
@@ -10,7 +9,7 @@ import {
   DialogActions,
 } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, gql } from '@apollo/client';
 import paths from 'constants/paths';
 
 const DELETE_AGENCY = gql`

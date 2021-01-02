@@ -1,9 +1,8 @@
 import React from 'react';
-import gql from 'graphql-tag';
 import { Card, CardHeader, CardContent, Typography } from '@material-ui/core';
 import { Formik } from 'formik';
 import { useParams } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation, gql } from '@apollo/client';
 import { AgencyForm, Loading } from 'components';
 import * as Yup from 'yup';
 

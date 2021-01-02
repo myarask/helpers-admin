@@ -1,13 +1,14 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloProvider } from '@apollo/react-hooks';
 import './index.css';
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import { onError } from 'apollo-link-error';
-import { ApolloLink, Observable } from 'apollo-link';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 
@@ -17,61 +18,28 @@ import * as serviceWorker from './serviceWorker';
 const AuthorizedApolloProvider = ({ children }) => {
   const { getAccessTokenSilently } = useAuth0();
 
-  const request = async (operation) => {
+  const httpLink = createHttpLink({
+    uri:
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3001/api/graphql'
+        : '/api/graphql',
+  });
+
+  const authLink = setContext(async (_, { headers }) => {
     const token = await getAccessTokenSilently({
       audience: process.env.REACT_APP_AUTH_AUDIENCE,
     });
 
-    operation.setContext({
+    return {
       headers: {
+        ...headers,
         authorization: token ? `Bearer ${token}` : '',
       },
-    });
-  };
-
-  const requestLink = new ApolloLink(
-    (operation, forward) =>
-      new Observable((observer) => {
-        let handle;
-        Promise.resolve(operation)
-          .then((oper) => request(oper))
-          .then(() => {
-            handle = forward(operation).subscribe({
-              next: observer.next.bind(observer),
-              error: observer.error.bind(observer),
-              complete: observer.complete.bind(observer),
-            });
-          })
-          .catch(observer.error.bind(observer));
-
-        return () => {
-          if (handle) handle.unsubscribe();
-        };
-      })
-  );
+    };
+  });
 
   const client = new ApolloClient({
-    link: ApolloLink.from([
-      onError(({ graphQLErrors, networkError }) => {
-        if (graphQLErrors)
-          graphQLErrors.forEach(({ message, locations, path }) =>
-            console.log(
-              `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-            )
-          );
-        if (networkError) {
-          console.log(`[Network error]: ${networkError}`);
-        }
-      }),
-      requestLink,
-      new HttpLink({
-        uri:
-          process.env.NODE_ENV === 'development'
-            ? 'http://localhost:3001/api/graphql'
-            : '/api/graphql',
-        credentials: 'same-origin',
-      }),
-    ]),
+    link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
   });
 

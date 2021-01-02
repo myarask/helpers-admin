@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import gql from 'graphql-tag';
 import {
   Button,
   Card,
@@ -24,7 +23,7 @@ import {
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import { useParams } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation, gql } from '@apollo/client';
 import { TextField } from 'formik-material-ui';
 import { Loading } from 'components';
 import DeleteIcon from '@material-ui/icons/Delete';

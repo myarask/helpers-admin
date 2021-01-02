@@ -1,9 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import gql from 'graphql-tag';
 import { Typography } from '@material-ui/core';
 import { useParams, Switch, Route, Redirect } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, gql } from '@apollo/client';
 import paths from 'constants/paths';
 import AgencyNav from './AgencyNav';
 import AgencyDanger from './AgencyDanger';

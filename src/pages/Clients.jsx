@@ -1,5 +1,4 @@
 import React from 'react';
-import gql from 'graphql-tag';
 import {
   Button,
   Card,
@@ -13,7 +12,7 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation, gql } from '@apollo/client';
 
 const GET_DATA = gql`
   query {

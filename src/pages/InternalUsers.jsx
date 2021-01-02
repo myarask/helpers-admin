@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import gql from 'graphql-tag';
 import {
   Button,
   Card,
@@ -26,7 +25,7 @@ import { TextField } from 'formik-material-ui';
 import { Formik, Field, Form } from 'formik';
 import DeleteIcon from '@material-ui/icons/Delete';
 import * as Yup from 'yup';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation, gql } from '@apollo/client';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
